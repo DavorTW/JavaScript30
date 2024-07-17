@@ -53,22 +53,64 @@
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    
+    console.table(inventors);
+    inventors.sort((a,b) =>{
+      if(a.year > b.year) return 1;
+      if(a.year === b.year) return 0;
+      if(a.year < b.year) return -1;
+    });
+    console.table(inventors);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const totalYears = inventors.reduce((total, currentInventor)=>{
+      return total + (currentInventor.passed - currentInventor.year);
+    }, 0);
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
+    const oldest = inventors.sort((a, b) =>{
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+      return lastGuy > nextGuy ? -1 : 1;
+    });
+    console.table(oldest);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    
+    /***const category = document.querySelector(".mw-category");
+    console.log(category);
+    const links = [...category.querySelectorAll("a")];
+    console.log(links);
+    const withDe = links
+                        .map(link => link.textContent)
+                        .filter(streetName => streetName.includes("de"));
+    console.table(withDe);***/
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortedPeople = people.sort((lastGuy, nextGuy)=>{
+      const [aLast, aFirst] = lastGuy.split(", ");
+      const [bLast, bFirst] = nextGuy.split(", ");
+      return aLast > bLast ? 1 : -1;
+    })
+    console.table(sortedPeople);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const vehicles = data.reduce((obj, item) =>{
+      if(!obj[item]){ //if there is no such object, we initialize it
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {})
+
+    console.log(vehicles);
 
   </script>
 </body>
